@@ -1,34 +1,35 @@
-// Set the number for which we want to find the largest prime factor
-const number = 600851475143;
+// Set the number of prime numbers we want to find
+const numPrimes = 10001;
 
-// Initialize the largest prime factor to 2 (since it's the smallest prime number)
-let largestPrimeFactor = 2;
+// Initialize the current number and count of primes to 2 (since it's the first prime number)
+let currentNumber = 2;
+let numPrimesFound = 0;
 
-// Divide the number by 2 until it's no longer divisible
-while (number % 2 == 0) {
-  number /= 2;
-}
-
-// Start checking for prime factors at 3
-let divisor = 3;
-
-// Keep checking for prime factors until the divisor is greater than the number
-while (divisor <= number) {
-  // If the number is divisible by the divisor, divide it by the divisor and update the largest prime factor
-  if (number % divisor == 0) {
-    number /= divisor;
-    largestPrimeFactor = divisor;
+// Keep checking for prime numbers until we find the desired number
+while (numPrimesFound < numPrimes) {
+  // Assume the current number is prime
+  let isPrime = true;
+  
+  // Check if the current number is divisible by any number less than itself
+  for (let i = 2; i < currentNumber; i++) {
+    if (currentNumber % i == 0) {
+      // If the current number is divisible by another number, it's not prime
+      isPrime = false;
+      break;
+    }
   }
-  // Otherwise, move on to the next possible divisor (skip even numbers)
-  else {
-    divisor += 2;
+  
+  // If the current number is prime, increment the count of primes found
+  if (isPrime) {
+    numPrimesFound++;
   }
+  
+  // Move on to the next number
+  currentNumber++;
 }
 
-// If the number is still greater than 2, it's the largest prime factor
-if (number > 2) {
-  largestPrimeFactor = number;
-}
+// The current number is the 10001st prime number
+const prime = currentNumber - 1;
 
-// Display the largest prime factor in the HTML element with id "largest"
-document.getElementById("largest").innerHTML = largestPrimeFactor;
+// Display the 10001st prime number in the HTML element with id "prime"
+document.getElementById("prime").innerHTML = prime;
